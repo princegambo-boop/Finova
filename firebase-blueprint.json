@@ -1,0 +1,109 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile and settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth user ID" },
+        "email": { "type": "string", "description": "User email address" },
+        "displayName": { "type": "string", "description": "User display name" },
+        "photoURL": { "type": "string", "description": "User avatar photo URL" },
+        "createdAt": { "type": "string", "description": "Timestamp when account was created" },
+        "updatedAt": { "type": "string", "description": "Timestamp when account was last updated" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Account": {
+      "title": "Account",
+      "description": "Financial depository or credit account",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Account unique ID" },
+        "userId": { "type": "string", "description": "User ID owning the account" },
+        "name": { "type": "string", "description": "Account friendly name" },
+        "type": { "type": "string", "enum": ["checking", "savings", "treasury", "settlement", "escrow", "credit"], "description": "Account classification" },
+        "institution": { "type": "string", "description": "Banking or depository institution" },
+        "accountNumberMask": { "type": "string", "description": "Last 4 digits masking" },
+        "balance": { "type": "number", "description": "Current ledger balance" },
+        "availableBalance": { "type": "number", "description": "Available liquidity" },
+        "currency": { "type": "string", "description": "ISO currency code" },
+        "lastSynced": { "type": "string", "description": "Human readable sync time" },
+        "status": { "type": "string", "enum": ["connected", "syncing", "error"], "description": "Sync status" },
+        "color": { "type": "string", "description": "Brand hex color" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "description": "Last update timestamp" }
+      },
+      "required": ["id", "userId", "name", "type", "institution", "balance", "availableBalance"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial ledger transaction entry",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Transaction unique ID" },
+        "userId": { "type": "string", "description": "User ID owning the transaction" },
+        "date": { "type": "string", "description": "Transaction date" },
+        "description": { "type": "string", "description": "Detailed description or memo" },
+        "merchant": { "type": "string", "description": "Merchant or counterparty name" },
+        "category": { "type": "string", "description": "Expense or revenue category" },
+        "accountId": { "type": "string", "description": "Linked account ID" },
+        "accountName": { "type": "string", "description": "Name of linked account" },
+        "amount": { "type": "number", "description": "Monetary value" },
+        "type": { "type": "string", "enum": ["inflow", "outflow"], "description": "Direction of cash movement" },
+        "status": { "type": "string", "enum": ["reconciled", "pending", "flagged"], "description": "Audit status" },
+        "source": { "type": "string", "description": "Origin of transaction record" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["id", "userId", "date", "description", "amount", "type", "category"]
+    },
+    "InvestSettings": {
+      "title": "InvestSettings",
+      "description": "User micro-investing portfolio configurations",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID" },
+        "initialPrincipal": { "type": "number", "description": "Starting deposit amount" },
+        "monthlyContribution": { "type": "number", "description": "Monthly DCA amount" },
+        "riskLevel": { "type": "string", "enum": ["conservative", "balanced", "growth", "aggressive"], "description": "Risk profile" },
+        "selectedPortfolio": { "type": "string", "description": "Selected ETF basket ID" },
+        "isAutoInvestActive": { "type": "boolean", "description": "Auto deposit status" },
+        "updatedAt": { "type": "string", "description": "Last updated" }
+      },
+      "required": ["userId"]
+    },
+    "LearnProgress": {
+      "title": "LearnProgress",
+      "description": "Academy course completion tracking",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "User ID" },
+        "completedLessonIds": { "type": "array", "description": "IDs of completed modules" },
+        "updatedAt": { "type": "string", "description": "Last updated" }
+      },
+      "required": ["userId", "completedLessonIds"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profile document accessible only to the authenticated user"
+    },
+    "/users/{userId}/accounts/{accountId}": {
+      "schema": "Account",
+      "description": "User depository and credit accounts"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "Transaction",
+      "description": "User financial transactions"
+    },
+    "/users/{userId}/investSettings/{settingId}": {
+      "schema": "InvestSettings",
+      "description": "User micro-investing configurations"
+    },
+    "/users/{userId}/learnProgress/{progressId}": {
+      "schema": "LearnProgress",
+      "description": "User academy module completion status"
+    }
+  }
+}

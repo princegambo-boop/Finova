@@ -1,0 +1,21 @@
+# Dependencies
+node_modules/
+
+# Production builds
+dist/
+build/
+coverage/
+
+# Logs and system files
+*.log
+.DS_Store
+
+# Environment and secrets (Never commit to GitHub)
+.env
+.env.local
+.env.*.local
+.env*
+!.env.example
+
+# Firebase configuration and credentials (Never commit to GitHub)
+firebase-applet-config.json

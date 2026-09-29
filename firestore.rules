@@ -1,0 +1,82 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isDocOwner() {
+      return isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    function isCreatingOwnDoc() {
+      return isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // ===============================================================
+    // 1. User Root Document & Subcollections (/users/{userId}/...)
+    // ===============================================================
+    match /users/{userId} {
+      // Users can only access their own user profile document
+      allow read, write: if isOwner(userId);
+
+      // User Accounts: /users/{userId}/accounts/{accountId}
+      match /accounts/{accountId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // User Transactions: /users/{userId}/transactions/{transactionId}
+      match /transactions/{transactionId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // User Micro-Invest Settings: /users/{userId}/investSettings/{settingId}
+      match /investSettings/{settingId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // User Learn Academy Progress: /users/{userId}/learnProgress/{progressId}
+      match /learnProgress/{progressId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Catch-all for any additional subcollections under a user
+      match /{allSubcollections=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // ===============================================================
+    // 2. Top-Level Collections (Documents containing a 'userId' field)
+    // ===============================================================
+    match /accounts/{accountId} {
+      allow get, update, delete: if isDocOwner();
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingOwnDoc();
+    }
+
+    match /transactions/{transactionId} {
+      allow get, update, delete: if isDocOwner();
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingOwnDoc();
+    }
+
+    match /investSettings/{settingId} {
+      allow get, update, delete: if isDocOwner();
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingOwnDoc();
+    }
+
+    match /learnProgress/{progressId} {
+      allow get, update, delete: if isDocOwner();
+      allow list: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isCreatingOwnDoc();
+    }
+  }
+}

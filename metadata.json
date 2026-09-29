@@ -1,0 +1,6 @@
+{
+  "name": "Finova",
+  "description": "Smart budgeting, guided micro-investing, real-time currency conversion, and financial education tools to master your money and shape your future.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

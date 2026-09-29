@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- FINOVA Vector Favicon with Automatic Light/Dark Theme Switching -->
+  <style>
+    .finova-pillar { stroke: #41603B; }
+    .finova-arm-mid { stroke: #659B5E; }
+    .finova-arm-top { stroke: #659B5E; }
+
+    @media (prefers-color-scheme: dark) {
+      .finova-pillar { stroke: #FFFFFF; }
+      .finova-arm-mid { stroke: #659B5E; }
+      .finova-arm-top { stroke: #86EFAC; }
+    }
+  </style>
+
+  <!-- Bedrock Pillar -->
+  <path
+    class="finova-pillar"
+    d="M 9 15.5 V 40.5"
+    stroke-width="7"
+    stroke-linecap="round"
+  />
+
+  <!-- Middle Horizon-to-Ascent Vector -->
+  <path
+    class="finova-arm-mid"
+    d="M 18.5 27.5 H 25.5 L 33.5 19.5"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <!-- Upper Sovereign Growth Wing -->
+  <path
+    class="finova-arm-top"
+    d="M 18.5 15.5 H 30.5 L 39.5 6.5"
+    stroke-width="6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

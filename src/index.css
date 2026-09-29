@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  --color-page: #F8F9FA;
+  --color-surface: #FFFFFF;
+  --color-primary-green: #659B5E;
+  --color-dark-green: #41603B;
+  --color-pale-green: #E8F0EA;
+  --color-primary-navy: #1E293B;
+  --color-secondary-slate: #64748B;
+  --color-border-grid: #E2E8F0;
+  --color-positive: #22C55E;
+  --color-positive-bg: #DCFCE7;
+  --color-negative: #EF4444;
+  --color-negative-bg: #FEE2E2;
+  --color-blue-series: #3B82F6;
+  --color-purple-series: #8B5CF6;
+  --color-amber-series: #F59E0B;
+  --color-neutral-fill: #F1F5F9;
+
+  --font-heading: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  color: #1E293B;
+  background-color: #F8F9FA;
+}
+
+.font-young-serif,
+.font-heading {
+  font-family: 'Manrope', 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.font-inter {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Custom scrollbars for data tables and logs */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
